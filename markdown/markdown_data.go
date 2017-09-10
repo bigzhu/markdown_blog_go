@@ -33,6 +33,9 @@ func GetContent(name string) (string, string) {
 		panic(err)
 	}
 	s := []byte(file)
+	if strings.Contains(string(s), "status: draft") {
+		s = []byte("# 这是一个机密文件, 不允许查看!")
+	}
 	toc := CreateToc(string(s))
 	// fmt.Printf(toc)
 	unsafe := blackfriday.MarkdownCommon(s)
