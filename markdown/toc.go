@@ -15,6 +15,8 @@ func FormatToc(title string) string { // 生成 toc 的 markdown 格式
 		space = " "
 	}
 	title = strings.Replace(title, "#", "", -1)
+	title = strings.TrimSpace(title)
+	// fmt.Printf("t%st\n", title)
 	escaped_title := url.QueryEscape(title)
 	return fmt.Sprintf("%s* [%s](#%s)\n", space, title, escaped_title)
 }
