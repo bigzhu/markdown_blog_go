@@ -88,6 +88,9 @@ func Search(search_name string) []File {
 			continue
 		} else {
 			name := file.Name()
+			if !strings.HasSuffix(name, ".md") {
+				continue
+			}
 			if !strings.Contains(name, search_name) {
 				continue
 			}

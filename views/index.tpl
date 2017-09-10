@@ -9,8 +9,8 @@
         <meta name="description" content="The BigZhu's Blog">
         <meta name="author" content="{{.author}}">
 
-        <link rel="stylesheet" href="/static/github-markdown-css/github-markdown.css">
-        <link rel="stylesheet" href="/static/style.css">
+        <link rel="stylesheet" href="/static/css/github-markdown-css/github-markdown.css">
+        <link rel="stylesheet" href="/static/css/style.css">
         <style>
             .markdown-body {
                 box-sizing: border-box;
