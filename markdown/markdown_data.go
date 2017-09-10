@@ -1,7 +1,7 @@
 package markdown
 
 import (
-	"fmt"
+	// "fmt"
 	"github.com/microcosm-cc/bluemonday"
 	"github.com/russross/blackfriday"
 	"io/ioutil"
