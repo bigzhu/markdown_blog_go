@@ -1,7 +1,9 @@
 package controllers
 
 import (
+	// "fmt"
 	"github.com/astaxie/beego"
+	// "log"
 	"markdown_blog_go/markdown"
 	"net/url"
 )
@@ -11,6 +13,7 @@ type MainController struct {
 }
 
 func (c *MainController) Get() {
+
 	name := c.GetString(":name")
 	name, _ = url.QueryUnescape(name)
 	if len(name) == 0 {
@@ -21,7 +24,11 @@ func (c *MainController) Get() {
 	c.Data["title"] = name
 	c.Data["author"] = "bigzhu"
 	c.Data["author_link"] = "http://bigzhu.lorstone.com/bigzhu"
-	c.Data["modify_time"] = markdown.GetFileModTime(name)
+	modify_time, err := markdown.GetFileModTime(name)
+	if err != nil {
+		c.Abort("404")
+	}
+	c.Data["modify_time"] = modify_time
 	c.Data["toc"] = "will"
 	c.Data["content"] = markdown.GetContent(name)
 	pre, old := markdown.PreAndOld(name)

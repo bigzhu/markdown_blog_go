@@ -72,13 +72,12 @@ func RemoveSuffix(name string) string { // 删后缀
 	name = name[0 : len(name)-len(extension)]
 	return name
 }
-func GetFileModTime(name string) time.Time {
+func GetFileModTime(name string) (time time.Time, err error) {
 	fi, err := os.Stat(path + name + ".md")
 	if err != nil {
-		log.Fatal(err)
-		panic(err)
+		return
 	}
-	return fi.ModTime()
+	return fi.ModTime(), err
 }
 func Search(search_name string) []File {
 	// 获取所有文件
