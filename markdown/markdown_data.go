@@ -26,17 +26,23 @@ type Files []File
 func (a Files) Less(i, j int) bool { return a[j].Time.Before(a[i].Time) }
 func (a Files) Len() int           { return len(a) }
 func (a Files) Swap(i, j int)      { a[i], a[j] = a[j], a[i] }
-func GetContent(name string) string {
+func GetContent(name string) (string, string) {
 	file, err := ioutil.ReadFile(path + name + ".md")
 	if err != nil {
 		log.Fatal(err)
 		panic(err)
 	}
 	s := []byte(file)
+	toc := CreateToc(string(s))
+	// fmt.Printf(toc)
 	unsafe := blackfriday.MarkdownCommon(s)
 	html := string(bluemonday.UGCPolicy().SanitizeBytes(unsafe))
+
+	b_toc := []byte(toc)
+	unsafe = blackfriday.MarkdownCommon(b_toc)
+	toc = string(bluemonday.UGCPolicy().SanitizeBytes(unsafe))
 	// fmt.Printf("%s", html)
-	return html
+	return html, toc
 	// content = name_file.read()
 	// name_file.close()
 	// if 'status: draft' in content:

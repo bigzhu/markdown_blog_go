@@ -1,7 +1,6 @@
 package controllers
 
 import (
-	// "fmt"
 	"github.com/astaxie/beego"
 	// "log"
 	"markdown_blog_go/markdown"
@@ -29,8 +28,9 @@ func (c *MainController) Get() {
 		c.Abort("404")
 	}
 	c.Data["modify_time"] = modify_time
-	c.Data["toc"] = "will"
-	c.Data["content"] = markdown.GetContent(name)
+	content, toc := markdown.GetContent(name)
+	c.Data["toc"] = toc
+	c.Data["content"] = content
 	pre, old := markdown.PreAndOld(name)
 	c.Data["pre"] = pre
 	c.Data["old"] = old

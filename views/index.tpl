@@ -146,7 +146,7 @@
         <a href="{{.author_link}}" target="blank">{{.author}}</a> <time datetime="{{ .modify_time }}">{{ .modify_time }}</time>
         </p>
         </header>
-        {{.toc}}
+        {{str2html .toc}}
         {{str2html .content}}
         <hr>
         <b>bigzhu:「我就是在瞎说, 别让我举证」</b>
