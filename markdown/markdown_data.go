@@ -94,6 +94,9 @@ func Search(search_name string) []File {
 			if !strings.Contains(name, search_name) {
 				continue
 			}
+			if name == "search.md" {
+				continue
+			}
 			// 取文件的时间
 			fi, err := os.Stat(path + name)
 			if err != nil {
