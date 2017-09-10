@@ -2,6 +2,8 @@ package main
 
 import (
 	"fmt"
+	"github.com/microcosm-cc/bluemonday"
+	"github.com/russross/blackfriday"
 	"io/ioutil"
 	"log"
 	"os"
@@ -30,10 +32,11 @@ func getContent(name string) string {
 		log.Fatal(err)
 		return err.Error()
 	}
-	s := string(file)
-
-	fmt.Printf(s)
-	return s
+	s := []byte(file)
+	unsafe := blackfriday.MarkdownCommon(s)
+	html := string(bluemonday.UGCPolicy().SanitizeBytes(unsafe))
+	fmt.Printf("%s", html)
+	return html
 	// content = name_file.read()
 	// name_file.close()
 	// if 'status: draft' in content:
