@@ -30,7 +30,7 @@ func GetContent(name string) string {
 	file, err := ioutil.ReadFile(path + name + ".md")
 	if err != nil {
 		log.Fatal(err)
-		return err.Error()
+		panic(err)
 	}
 	s := []byte(file)
 	unsafe := blackfriday.MarkdownCommon(s)
@@ -50,7 +50,7 @@ func PreAndOld(name string) (string, string) { //返回前一个文章后一个�
 	file_name := name + ".md"
 	s_len := len(file_infos)
 	for index, value := range file_infos {
-		fmt.Printf("index: %d", index)
+		// fmt.Printf("index: %d", index)
 		if value.Name == file_name {
 			if s_len == 1 {
 				return "", ""
@@ -76,6 +76,7 @@ func GetFileModTime(name string) time.Time {
 	fi, err := os.Stat(path + name + ".md")
 	if err != nil {
 		log.Fatal(err)
+		panic(err)
 	}
 	return fi.ModTime()
 }
@@ -98,6 +99,7 @@ func Search(search_name string) []File {
 			fi, err := os.Stat(path + name)
 			if err != nil {
 				log.Fatal(err)
+				panic(err)
 			}
 			mtime := fi.ModTime()
 			file_info := File{name, mtime}
@@ -112,7 +114,7 @@ func init() {
 	usr, err := user.Current()
 	if err != nil {
 		log.Fatal(err)
-		return
+		panic(err)
 	}
 	var home = usr.HomeDir
 	path = home + "/Dropbox/blog/"
