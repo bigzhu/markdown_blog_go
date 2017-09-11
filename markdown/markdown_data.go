@@ -1,7 +1,7 @@
 package markdown
 
 import (
-	// "fmt"
+	"fmt"
 	"github.com/microcosm-cc/bluemonday"
 	"github.com/russross/blackfriday"
 	"io/ioutil"
@@ -42,9 +42,9 @@ func GetContent(name string) (string, string) {
 	html := string(bluemonday.UGCPolicy().SanitizeBytes(unsafe))
 
 	b_toc := []byte(toc)
-	unsafe = blackfriday.MarkdownCommon(b_toc)
-	toc = string(bluemonday.UGCPolicy().SanitizeBytes(unsafe))
-	// fmt.Printf("%s", html)
+	toc = string(blackfriday.MarkdownCommon(b_toc)) // 不能再执行SanitizeBytes, 会把 anchor 中的 %3A 转回:, 导致匹配不上
+	fmt.Printf("%s", toc)
+	// toc = string(bluemonday.UGCPolicy().SanitizeBytes(unsafe))
 	return html, toc
 	// content = name_file.read()
 	// name_file.close()
