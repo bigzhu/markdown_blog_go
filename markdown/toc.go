@@ -2,7 +2,7 @@ package markdown
 
 import (
 	"fmt"
-	"net/url"
+	// "net/url"
 	"strings"
 )
 
