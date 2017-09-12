@@ -97,13 +97,13 @@ func Search(search_name string) []File {
 			continue
 		} else {
 			name := file.Name()
-			if !strings.HasSuffix(name, ".md") {
+			if name == "search.md" {
+				continue
+			} else if strings.HasSuffix(name, ".md") {
+			} else {
 				continue
 			}
 			if !strings.Contains(name, search_name) {
-				continue
-			}
-			if name == "search.md" {
 				continue
 			}
 			// 取文件的时间
