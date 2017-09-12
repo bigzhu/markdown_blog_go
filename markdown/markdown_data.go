@@ -1,7 +1,7 @@
 package markdown
 
 import (
-	// "fmt"
+	"fmt"
 	"github.com/microcosm-cc/bluemonday"
 	"github.com/russross/blackfriday"
 	"io/ioutil"
@@ -15,6 +15,7 @@ import (
 )
 
 var path string
+var files_cache = make(map[string][]File)
 
 type File struct {
 	Name string
@@ -91,6 +92,14 @@ func GetFileModTime(name string) (time time.Time, err error) {
 func Search(search_name string) []File {
 	// 获取所有文件
 	var file_infos []File
+
+	value, ok := files_cache[search_name]
+	if ok {
+		return value
+	} else {
+		fmt.Printf("%v not in files_cache\n", search_name)
+	}
+
 	files, _ := ioutil.ReadDir(path)
 	for _, file := range files {
 		if file.IsDir() {
@@ -118,6 +127,8 @@ func Search(search_name string) []File {
 			sort.Sort(Files(file_infos))
 		}
 	}
+	fmt.Printf("%v\n", len(file_infos))
+	files_cache[search_name] = file_infos
 	return file_infos
 }
 
