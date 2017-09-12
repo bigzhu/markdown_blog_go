@@ -14,7 +14,14 @@ type MainController struct {
 type BlogController struct {
 	beego.Controller
 }
+type ClearController struct {
+	beego.Controller
+}
 
+func (c *ClearController) Get() {
+	markdown.ClearCache()
+	c.Redirect("/", 302)
+}
 func (c *BlogController) Get() {
 	name := c.GetString(":name")
 	if strings.HasSuffix(name, ".html") { // 把带着后缀html的重定向到原本那里

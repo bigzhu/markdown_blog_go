@@ -27,6 +27,9 @@ type Files []File
 func (a Files) Less(i, j int) bool { return a[j].Time.Before(a[i].Time) }
 func (a Files) Len() int           { return len(a) }
 func (a Files) Swap(i, j int)      { a[i], a[j] = a[j], a[i] }
+func ClearCache() { // 清缓存
+	files_cache = make(map[string][]File)
+}
 func GetContent(name string) (string, string) {
 	file, err := ioutil.ReadFile(path + name + ".md")
 	if err != nil {
