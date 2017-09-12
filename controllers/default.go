@@ -5,15 +5,33 @@ import (
 	// "log"
 	"markdown_blog_go/markdown"
 	"net/url"
+	"strings"
 )
 
 type MainController struct {
 	beego.Controller
 }
+type BlogController struct {
+	beego.Controller
+}
+
+func (c *BlogController) Get() {
+	name := c.GetString(":name")
+	if strings.HasSuffix(name, ".html") { // 把带着后缀html的重定向到原本那里
+		name = markdown.RemoveSuffix(name)
+		c.Redirect("/"+name, 301)
+	} else {
+		c.Redirect("/"+name, 301)
+	}
+}
 
 func (c *MainController) Get() {
 
 	name := c.GetString(":name")
+	if strings.HasSuffix(name, ".html") { // 把带着后缀html的重定向到原本那里
+		name = markdown.RemoveSuffix(name)
+		c.Redirect("/"+name, 301)
+	}
 	name, _ = url.QueryUnescape(name)
 	if len(name) == 0 {
 		file_infos := markdown.Search("")
