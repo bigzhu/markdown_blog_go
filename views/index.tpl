@@ -143,6 +143,15 @@
         <h2>{{.title}}</h2>
 
         <p class="meta">
+        <p>
+        {{ if .pre }}
+        <a class="pre" href="/{{.quote_pre}}" >←  {{.pre}} </a>
+        {{ end }}
+
+        {{ if .old }}
+        <a class="old" href="/{{.quote_old}}" >{{.old}} → </a>
+        {{ end }}
+        </p>
         <a href="{{.author_link}}" target="blank">{{.author}}</a> <time datetime="{{ .modify_time }}">{{ .modify_time }}</time>
         </p>
         </header>
