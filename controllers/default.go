@@ -43,8 +43,7 @@ func (c *MainController) Get() {
 	if len(name) == 0 {
 		file_infos := markdown.Search("")
 		name = markdown.RemoveSuffix(file_infos[0].Name)
-		name, _ = url.QueryUnescape(name)
-		c.Redirect("/"+name, 302)
+		c.Redirect("/"+url.QueryEscape(name), 302)
 	}
 	c.Data["title"] = name
 	c.Data["author"] = "bigzhu"
